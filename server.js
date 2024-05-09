@@ -5,6 +5,7 @@ import {
   HarmCategory,
   HarmBlockThreshold,
 } from "@google/generative-ai";
+import { parse } from "marked";
 
 function parse_options(options) {
   const topic = options[0].split("=")[1];
@@ -81,7 +82,7 @@ async function compare(topic, opt1, opt2) {
 
       const suggestion = await compare(topic, opt1, opt2);
 
-      res.writeHead(200).end(suggestion);
+      res.writeHead(200).end(parse(suggestion));
     } else {
       console.error(`${url} not found`);
       res.writeHead(404).end("Not Found");
